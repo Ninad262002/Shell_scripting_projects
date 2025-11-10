@@ -16,6 +16,54 @@ If-else statement.
      echo 5
    fi
 
+###########################################################################################
+hello.sh
+
+#!/bin/bash
+name="ninad"
+echo $name
+###########################################################################################
+backup.sh
+
+#!/bin/bash
+# Define source and destination directories
+SOURCE_DIR="/home/user/documents"
+DEST_DIR="/mnt/backups"
+
+# Create a timestamped filename
+DATE=$(date +%Y%m%d_%H%M%S)
+BACKUP_FILE="backup_${DATE}.tar.gz"
+
+# Create the destination directory if it doesn't exist
+mkdir -p "$DEST_DIR"
+
+# Perform the backup using tar
+tar -cpzf "$DEST_DIR/$BACKUP_FILE" "$SOURCE_DIR"
+
+# Provide feedback
+if [ $? -eq 0 ]; then
+    echo "Backup of $SOURCE_DIR completed successfully to $DEST_DIR/$BACKUP_FILE"
+else
+    echo "Backup of $SOURCE_DIR failed."
+fi
+
+###############################################################################################
+
+input.sh
+
+#!/bin/bash
+
+echo "Please enter you name"
+read name
+echo "your name is $name"
+
+
+#############################################################################################
+
+
+
+
+
 
 
 

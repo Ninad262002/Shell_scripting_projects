@@ -31,17 +31,17 @@ SOURCE_DIR="/home/user/documents"
 DEST_DIR="/mnt/backups"
 
 # Create a timestamped filename
-DATE=$(date +%Y%m%d_%H%M%S)
+DATE=$(date +%Y%m%d_%H%M%S)  #$( ... ) → means “run what’s inside and use its output here.”
 BACKUP_FILE="backup_${DATE}.tar.gz"
 
 # Create the destination directory if it doesn't exist
-mkdir -p "$DEST_DIR"
+mkdir -p "$DEST_DIR"  #The mkdir -p command is particularly useful when you need to create a complex directory structure with multiple levels of subdirectories
 
 # Perform the backup using tar
-tar -cpzf "$DEST_DIR/$BACKUP_FILE" "$SOURCE_DIR"
+tar -cpzf "$DEST_DIR/$BACKUP_FILE" "$SOURCE_DIR"     # p Preserve file permissions (keeps original read/write/execute permissions of files and directories)
 
 # Provide feedback
-if [ $? -eq 0 ]; then
+if [ $? -eq 0 ]; then   # $? → is a special variable in Bash that stores the exit status of the last command that was run. 0 -success , non-zero failure.
     echo "Backup of $SOURCE_DIR completed successfully to $DEST_DIR/$BACKUP_FILE"
 else
     echo "Backup of $SOURCE_DIR failed."

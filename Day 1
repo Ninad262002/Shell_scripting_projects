@@ -1,0 +1,21 @@
+Tasks - Revise shell basics + create 3 small scripts (hello.sh, backup.sh, userinput.sh)
+
+#Shell script should start with #!/bin/bash
+#To run a shell script it should have execute permission (chmod +x script.sh)
+#Variables 
+   Ex - 
+       greeting="Hello"  #to declear a variable
+       $greeting #to access variable
+#Conditionals
+If-else statement.
+
+   if [ $index -lt 5 ]
+   then
+     echo $index
+   else
+     echo 5
+   fi
+
+
+
+

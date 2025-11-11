@@ -1,0 +1,64 @@
+Loops & conditionals mini tasks — print patterns, rename files, etc.
+
+For loop
+Ex -
+for COLOR in red green blue
+do
+    echo "COLOR: $COLOR"
+done
+
+While Loop
+while [ condition ]
+do
+    # Commands to be executed
+done
+
+##################################################################################
+pattern.sh
+
+#!/bin/bash
+for i in $(seq 1 4); do
+  echo "Iteration $i"
+done
+
+or 
+
+#!/bin/bash
+#n=10
+for ((n=10; n<=21; n++));
+ do
+   echo $n
+ done
+##########################################################################
+
+Rename script 
+Rename with timestamp (useful for backups)
+
+#!/bin/bash
+file=backup.tar.gz
+timestamp=$(data %Y/%m/%d_%H:%M:%S)
+backup_file = backup_$timestamp.tar.gz
+
+mv "$file" "$backup_file"
+echo "file renamed to $backup_file"
+
+Ex 2
+
+#!/bin/bash
+old_name=ninad.txt
+new_name=Luffy.txt
+
+if [ -f "$old_name"];
+then
+   mv "$old_name" "$new_name"
+else
+   echo "File doesn't  exist"
+#############################################################
+
+If you want to rename multiple files at once, Linux also provides the rename utility
+
+Ex -
+rename .txt .log -- *.txt  #this command will change all .txt files into .log files, and run this command only when you are present in that directory where files are.
+
+
+

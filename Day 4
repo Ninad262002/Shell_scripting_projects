@@ -1,0 +1,26 @@
+File handling — read/write/append text from files
+
+####################################################
+script.sh
+
+#!/bin/bash
+#to create a file
+touch vishal.txt
+
+if [ -f "vishal.txt" ]; then
+        echo "file is created"
+else
+        echo "file not created"
+fi
+
+#to write in file 
+echo "writing something in file"
+echo "I booked the ticket for vishal mishra concert" > vishal.txt
+
+cat vishal.txt
+
+# to append in the file
+echo "appendig some info in file"
+echo "The concert is going to held on 29 Nov" >> vishal.txt
+
+cat vishal.txt

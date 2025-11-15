@@ -1,0 +1,103 @@
+grep, awk, sed combo challenges
+
+# grep
+Use grep when you need:
+✔ to find matching lines
+✔ fast search
+✔ pattern matching (regex)
+✔ color-highlight matches
+Syntax - grep [options] pattern [file...]
+ex -  grep -i "error" file1.txt file2.log  (to search error in multiple files
+
+# awk
+Use awk when you need:
+✔ Process column-based data
+✔ Do calculations
+✔ Convert or summarize data
+✔ Print specific fields
+✔ Work with CSV, logs, space-separated files
+Syntax - awk options 'pattern {action}'
+ex - awk '{print $4}' sample.txt
+Terms used in awk
+NR - No. of record/row
+NF - No. of field
+$0 - Print everithing
+$1 , $2 - Field no.
+
+# sed 
+Use sed when you need:
+✔ Search and replace
+✔ Delete lines
+✔ Insert or append lines
+✔ Edit configuration files
+✔ Remove characters / clean text
+
+syntax - sed [options] 'script' [input_file(s)]
+ex - sed 's/<string_to_change>/<new_string>/g' file_name  (How to replace a word in a file and show?)
+
+###########################################################################################
+sample.csv
+id,firstname,lastname,email,"Salary ",profession
+100,Cissiee,Center,Cissiee.Center@yopmail.com,25553,police officer
+101,Larine,Louanna,Larine.Louanna@yopmail.com,49837,firefighter
+102,Alia,Ralfston,Alia.Ralfston@yopmail.com,75181,worker
+103,Marita,Joeann,Marita.Joeann@yopmail.com,61616,worker
+104,Bibby,Lenny,Bibby.Lenny@yopmail.com,45034,police officer
+105,Vivia,Federica,Vivia.Federica@yopmail.com,40932,firefighter
+106,Silvana,Paine,Silvana.Paine@yopmail.com,52966,doctor
+107,Rosene,Vorster,Rosene.Vorster@yopmail.com,57742,worker
+108,Randa,Woodberry,Randa.Woodberry@yopmail.com,52819,worker
+109,Aaren,Lilas,Aaren.Lilas@yopmail.com,95445,police officer
+110,Bertine,Genna,Bertine.Genna@yopmail.com,58079,developer
+111,Mamie,Read,Mamie.Read@yopmail.com,99721,developer
+112,Leona,Dash,Leona.Dash@yopmail.com,65838,police officer
+113,Vevay,Beniamino,Vevay.Beniamino@yopmail.com,93039,worker
+114,June,Brandice,June.Brandice@yopmail.com,98321,developer
+115,Julieta,Wiener,Julieta.Wiener@yopmail.com,89185,developer
+116,Xylina,Skell,Xylina.Skell@yopmail.com,42700,doctor
+117,Ida,Lutero,Ida.Lutero@yopmail.com,38471,worker
+118,Carmencita,Lorenz,Carmencita.Lorenz@yopmail.com,36190,developer
+119,Amii,Clywd,Amii.Clywd@yopmail.com,39131,police officer
+###############################################################################################
+
+Q.1) Using grep, Find all the records where the profession is "developer".
+Ans - grep -i 'developer' sample.csv
+
+Q.2) Using awk , Display only those lines where the salary is above 90000.
+Ans - awk -F',' '$5 > 90000' sample.csv
+
+Q.3) Using awk , Print firstname, lastname, and salary of all "police officer" employees.
+Ans - awk -F',' '{print $2,$3,$5}' sample.txt
+
+Q.4) Using awk, Find the total salary of all workers (profession = worker).
+Ans - awk -F',' '$NF=="worker" { sum += $5 } END { print "The total salary of the workers is " sum }'
+
+Q.5) Using awk, Print the email addresses of all people whose salary is less than 50000.
+Ans - awk -F',' 'NR>1 && $5 < 50000 { print $4 } ' sample.csv
+
+Q.6) Using awk, Count how many employees exist for each profession.
+Ans - awk -F',' 'NR>1 { count[$6]++ } END { for(p in count) print p, count[p] }' sample.csv
+# here count is not any module or function its an array name , count[$6]++ counts how many times each profession appears.
+
+Q.7) Using sed, Replace all occurrences of “worker” with “labour” in the file (without modifying other professions).
+Ans -  sed 's/worker/labour/' sample.csv
+
+Q.8) Using sed, Remove all lines where the profession is “doctor”.
+Ans - sed '/doctor/d' sample.csv
+
+Q.9) Using awk, Print only those records where firstname starts with the letter ‘M’.
+Ans - 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

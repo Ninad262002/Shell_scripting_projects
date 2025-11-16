@@ -1,0 +1,24 @@
+# Write a “System Info Report” script (hostname, uptime, CPU, memory, disk usage)
+
+#!/bin/bash
+
+#to create a sample file which will store hostname, cpu , uptime,disk_usage, memroy
+Hostname=$(hostname)
+Uptime=$(uptime)
+CPU=$(top -bn1 | grep "Cpu(s)" | awk -F',' '{print $4}' | cut -f 1 -d'.')  #cut -f 1 -d'.' = this will remove decimal and will give you integer
+disk_usage=$(df -h | awk 'NR==2{print $3}')
+memory=$(free -h | awk '/Mem/ {printf("%.2f%%\n", $3/$2*100)}')
+
+touch sample_report.txt
+File=sample_report.txt
+date=$(date +%Y/%m/%d_%H:%M:%S)
+echo "Date:- $date" >> $File
+echo "Hostname:- $Hostname" >> $File
+echo "Uptime:- $Uptime" >> $File
+echo "CPU:= $CPU%" >> $File
+echo "Disk_usage:- $disk_usage" >> $File
+echo "Memory Usage:- $memory" >> $File
+echo "--------------------------------------------------" >> $File
+
+
+cat sample_report.txt

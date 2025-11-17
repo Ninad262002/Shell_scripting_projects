@@ -86,7 +86,8 @@ Q.8) Using sed, Remove all lines where the profession is “doctor”.
 Ans - sed '/doctor/d' sample.csv
 
 Q.9) Using awk, Print only those records where firstname starts with the letter ‘M’.
-Ans - 
+Ans -  awk -F',' '$2 ~ /^M/' filename.csv
+
 
 
 

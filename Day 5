@@ -80,7 +80,7 @@ Ans - awk -F',' 'NR>1 { count[$6]++ } END { for(p in count) print p, count[p] }'
 # here count is not any module or function its an array name , count[$6]++ counts how many times each profession appears.
 
 Q.7) Using sed, Replace all occurrences of “worker” with “labour” in the file (without modifying other professions).
-Ans -  sed 's/worker/labour/' sample.csv
+Ans -  sed 's/worker/labour/' sample.csv , sed -i 's/worker/labour/' sample.csv #to modify the file 
 
 Q.8) Using sed, Remove all lines where the profession is “doctor”.
 Ans - sed '/doctor/d' sample.csv

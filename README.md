@@ -54,4 +54,92 @@ chmod 700 /var/secure
 touch $PASSWORD_FILE
 chmod 600 $PASSWORD_FILE
 
+5. Generate logs and passwords 
+log_message() {
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" >> $LOG_FILE
+}
+
+generate_password() {
+    openssl rand -base64 12
+}
+
+6. main logic
+   while IFS=";" read -r username groups || [ -n "$username" ]; do
+   
+   IFS is a internal field seperator , it seperates line , and same them in two variable "username" and "groups"
+   [-n $username] it checks weather their is any character present in $username
+   Or operator ( || )
+     If read fails, check if username is NOT empty.
+     If read works → loop continues normally
+     If read fails → OR part is checked
+     If $username has data → loop still runs
+     If $username is empty → loop stops
+
+    username=$(echo "$username" | xargs)
+    groups=$(echo "$groups" | xargs)
+   it removes extra space from beginning and end
+
+7. Check if the personal group exists, create one if it doesn't
+if ! getent group "$username" &>/dev/null; then
+    echo "Group $username does not exist, adding it now"
+    groupadd "$username"
+    log_message "Created personal group $username"
+
+fi
+
+:- getent - Get entry from system databases.
+  It checks if a user, group, host, etc. exists in the system database.
+:- her &> /dev/null to hide all output
+:- ! means NOT
+:- which means if group not exit then run below commmands
+:- if group exist then skip
+:- log_message save message in log file
+
+8.  Check if the user exists
+    if id -u "$username" &>/dev/null; then
+        echo "User $username exists"
+        log_message "User $username already exists"
+    else
+        # Create a new user with the created group if the user does not exist
+        useradd -m -g $username -s /bin/bash "$username"
+        log_message "Created a new user $username"
+    fi
+
+9. Check if the groups were specified
+    if [ -n "$groups" ]; then
+        # Read through the groups saved in the groups variable created earlier and split each group by ','
+        IFS=',' read -r -a group_array <<< "$groups"
+   
+   It splits the string $groups using comma ( , )
+   And stores each piece into an array called group_array
+   - a  Put the split values into an array
+   - <<< It feeds the value of $groups into read
+10.  Check if the groups were specified
+    if [ -n "$groups" ]; then
+        # Read through the groups saved in the groups variable created earlier and split each group by ','
+        IFS=',' read -r -a group_array <<< "$groups"
+
+        # Loop through the groups 
+        for group in "${group_array[@]}"; do
+            group=$(echo "$group" | xargs)
+            if ! getent group "$group" &>/dev/null; then
+                 If the group does not exist, create a new group
+                groupadd "$group"
+                log_message "Created group $group."
+            fi
+            Add the user to each group
+            usermod -aG "$group" "$username"
+            log_message "Added user $username to group $group."
+        done
+    fi
+11. Create and set a user password
+    password=$(generate_password)
+    echo "$username:$password" | chpasswd
+    # Save user and password to a file
+    echo "$username,$password" >> $PASSWORD_FILE
+   
+
+   
+   
+   
 

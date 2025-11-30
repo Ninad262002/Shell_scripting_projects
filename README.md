@@ -107,7 +107,7 @@ fi
 
 9. Check if the groups were specified
     if [ -n "$groups" ]; then
-        # Read through the groups saved in the groups variable created earlier and split each group by ','
+        Read through the groups saved in the groups variable created earlier and split each group by ','
         IFS=',' read -r -a group_array <<< "$groups"
    
    It splits the string $groups using comma ( , )
@@ -116,10 +116,10 @@ fi
    - <<< It feeds the value of $groups into read
 10.  Check if the groups were specified
     if [ -n "$groups" ]; then
-        # Read through the groups saved in the groups variable created earlier and split each group by ','
+        Read through the groups saved in the groups variable created earlier and split each group by ','
         IFS=',' read -r -a group_array <<< "$groups"
 
-        # Loop through the groups 
+        Loop through the groups 
         for group in "${group_array[@]}"; do
             group=$(echo "$group" | xargs)
             if ! getent group "$group" &>/dev/null; then
